@@ -1,12 +1,63 @@
-// Update this page (the content is just a fallback if you fail to update the page)
 
-const Index = () => {
+import React, { useEffect } from 'react';
+import Navbar from '../components/Navbar';
+import Hero from '../components/Hero';
+import About from '../components/About';
+import Projects from '../components/Projects';
+import Experience from '../components/Experience';
+import Certifications from '../components/Certifications';
+import Contact from '../components/Contact';
+import Footer from '../components/Footer';
+
+const Index: React.FC = () => {
+  useEffect(() => {
+    // Smooth scroll to section when URL has hash
+    if (window.location.hash) {
+      const id = window.location.hash.substring(1);
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Add scroll animation observer
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal-animation').forEach((el) => {
+      observer.observe(el);
+    });
+
+    return () => {
+      // Clean up observer
+      document.querySelectorAll('.reveal-animation').forEach((el) => {
+        observer.unobserve(el);
+      });
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <Hero />
+      <About />
+      <Projects />
+      <Experience />
+      <Certifications />
+      <Contact />
+      <Footer />
     </div>
   );
 };
