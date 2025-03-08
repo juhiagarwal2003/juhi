@@ -1,12 +1,14 @@
 
 import React, { useEffect, useRef } from 'react';
+import { cn } from '@/lib/utils';
 
 interface ScrollRevealProps {
   children: React.ReactNode;
   delay?: number;
+  className?: string;
 }
 
-const ScrollReveal: React.FC<ScrollRevealProps> = ({ children, delay = 0 }) => {
+const ScrollReveal: React.FC<ScrollRevealProps> = ({ children, delay = 0, className }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -36,7 +38,7 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({ children, delay = 0 }) => {
   }, [delay]);
 
   return (
-    <div ref={ref} className="reveal-animation">
+    <div ref={ref} className={cn("reveal-animation", className)}>
       {children}
     </div>
   );
