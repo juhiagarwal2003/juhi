@@ -11,16 +11,6 @@ import Footer from '../components/Footer';
 
 const Index: React.FC = () => {
   useEffect(() => {
-    // Initialize theme from localStorage
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-
     // Smooth scroll to section when URL has hash
     if (window.location.hash) {
       const id = window.location.hash.substring(1);

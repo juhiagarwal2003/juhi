@@ -78,7 +78,7 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-background text-foreground transition-colors duration-300;
+    @apply bg-background text-foreground;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
   }
 }
@@ -89,7 +89,7 @@
   }
   
   .glass-effect {
-    @apply bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl dark:bg-black/10 dark:border-white/10;
+    @apply bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl;
   }
   
   .section-title {
@@ -117,17 +117,5 @@
   
   .pill {
     @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
-  }
-  
-  .hover-scale {
-    @apply transition-transform duration-200 hover:scale-105;
-  }
-  
-  .dark .glass-card {
-    @apply bg-black/40 backdrop-blur-xl border border-white/10;
-  }
-  
-  .light .glass-card {
-    @apply bg-white/80 backdrop-blur-xl border border-black/10;
   }
 }
