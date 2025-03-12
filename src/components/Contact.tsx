@@ -5,9 +5,9 @@ import { Mail, Linkedin, Github, Code, Send } from 'lucide-react';
 import { toast } from 'sonner';
 import { createClient } from '@supabase/supabase-js';
 
-// Initialize Supabase client
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+// Initialize Supabase client with fallback values if environment variables are not set
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://kphkxykohagzdyhuasxr.supabase.co';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtwaGt4eWtvaGFnemR5aHVhc3hyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE0MjYwOTEsImV4cCI6MjA1NzAwMjA5MX0.JraUE45S-dCeKrHIrmo6fFhVlpLiTVTiTTuXLJq84WM';
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const Contact: React.FC = () => {
@@ -28,7 +28,20 @@ const Contact: React.FC = () => {
     setIsSubmitting(true);
     
     try {
-      // Store the contact message in Supabase and trigger email sending
+      // Store the contact message in Supabase database first
+      const { error: dbError } = await supabase
+        .from('contact_messages')
+        .insert([
+          {
+            name: formData.name,
+            email: formData.email,
+            message: formData.message
+          }
+        ]);
+      
+      if (dbError) throw dbError;
+
+      // Then trigger email sending via edge function
       const { data, error } = await supabase.functions.invoke('send-contact-email', {
         body: {
           name: formData.name,
