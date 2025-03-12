@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import ScrollReveal from './ScrollReveal';
 import ProjectCard from './ProjectCard';
@@ -8,7 +9,7 @@ const Projects: React.FC = () => {
   const projects = [
     {
       title: 'AgriTech Web Platform',
-      description: 'Created a platform using three AI models for crop recommendations, yield prediction, and disease detection. Implemented features for crop suggestions and yield estimation to support farmers' decision-making.',
+      description: 'Created a platform using three AI models for crop recommendations, yield prediction, and disease detection. Implemented features for crop suggestions and yield estimation to support farmers\'s decision-making.',
       tags: ['HTML', 'CSS', 'JavaScript', 'Flask/Django', 'Scikit-learn', 'TensorFlow', 'MySQL'],
       image: 'https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?auto=format&fit=crop&q=80&w=800',
       githubUrl: 'https://github.com',
