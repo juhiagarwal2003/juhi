@@ -8,6 +8,7 @@ interface CertificationCardProps {
   issuer: string;
   date: string;
   image: string;
+  score?: string;
   verified?: boolean;
   url?: string;
   className?: string;
@@ -18,6 +19,7 @@ const CertificationCard: React.FC<CertificationCardProps> = ({
   issuer,
   date,
   image,
+  score,
   verified = true,
   url,
   className,
@@ -48,6 +50,12 @@ const CertificationCard: React.FC<CertificationCardProps> = ({
           <p className="text-sm text-muted-foreground">{issuer}</p>
           <p className="text-xs text-muted-foreground">{date}</p>
         </div>
+        
+        {score && (
+          <p className="text-sm mt-2">
+            <span className="font-medium">Score:</span> {score}
+          </p>
+        )}
         
         {url && (
           <a 
