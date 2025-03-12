@@ -3,6 +3,12 @@ import React, { useState } from 'react';
 import ScrollReveal from './ScrollReveal';
 import { Mail, Linkedin, Github, Code, Send } from 'lucide-react';
 import { toast } from 'sonner';
+import { createClient } from '@supabase/supabase-js';
+
+// Initialize Supabase client
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -17,16 +23,33 @@ const Contact: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      // Store the contact message in Supabase and trigger email sending
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          recipientEmail: 'juhiagarwal200379@gmail.com'
+        }
+      });
+      
+      if (error) {
+        throw error;
+      }
+
       toast.success('Message sent successfully!');
       setFormData({ name: '', email: '', message: '' });
-    }, 1500);
+    } catch (error) {
+      console.error('Error sending message:', error);
+      toast.error('Failed to send message. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contacts = [
