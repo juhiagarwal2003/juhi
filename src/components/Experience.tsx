@@ -6,28 +6,28 @@ import TimelineItem from './TimelineItem';
 const Experience: React.FC = () => {
   const experiences = [
     {
-      title: 'Chairperson',
+      title: 'Research Head',
       organization: 'Women in Engineering Chapter, IEEE',
-      period: '2022 - Present',
-      description: 'Led initiatives to promote gender diversity in technology, organized workshops and mentorship programs for women in STEM fields.',
+      period: '2023 - 2024',
+      description: 'Led research initiatives and promoted women in engineering. Bennett University',
     },
     {
-      title: 'Tech Lead',
+      title: 'Senior Core Team Member',
       organization: 'BC3 (Bennett Cloud Computing Club)',
-      period: '2021 - 2022',
-      description: 'Managed a team of developers working on cloud-based projects, conducted training sessions on AWS and DevOps practices.',
+      period: '2023 - 2024',
+      description: 'Led management initiatives to achieve club goals. Bennett University',
     },
     {
-      title: 'Project Manager',
-      organization: 'Product Design Club',
-      period: '2020 - 2021',
-      description: 'Coordinated cross-functional teams in designing and implementing innovative tech solutions, enhancing project management skills.',
+      title: 'Management Co-Head',
+      organization: 'Product Design Technology Club',
+      period: '2023 - 2024',
+      description: 'Directed efforts to fulfill club objectives. Bennett University',
     },
     {
-      title: 'Technical Coordinator',
+      title: 'Project Management Team Member',
       organization: 'Enactus',
-      period: '2020',
-      description: 'Provided technical support for social entrepreneurship projects, implemented technology solutions for community development initiatives.',
+      period: '2022 - 2023',
+      description: 'Launched \'KI toothbrushes,\' selling 250 in one day, promoting eco-friendly oral health. Bennett University',
     },
   ];
 
