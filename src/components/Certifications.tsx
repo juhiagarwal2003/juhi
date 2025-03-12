@@ -1,4 +1,3 @@
-
 import React from 'react';
 import ScrollReveal from './ScrollReveal';
 import CertificationCard from './CertificationCard';
@@ -6,40 +5,44 @@ import CertificationCard from './CertificationCard';
 const Certifications: React.FC = () => {
   const certifications = [
     {
-      title: 'AWS Certified Solutions Architect',
-      issuer: 'Amazon Web Services',
-      date: 'Dec 2023',
-      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800',
-      url: '#certificate',
-    },
-    {
-      title: 'Machine Learning Specialization',
+      title: 'Improving Deep Neural Networks',
       issuer: 'Coursera',
-      date: 'Oct 2023',
+      date: 'Sep 2024',
+      score: '92.80%',
       image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=800',
       url: '#certificate',
     },
     {
-      title: 'Java Developer Certification',
-      issuer: 'Oracle',
-      date: 'Aug 2023',
+      title: 'Exploratory Data Analysis for Machine Learning',
+      issuer: 'Coursera',
+      date: 'Sep 2024',
+      score: '92.50%',
+      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800',
+      url: '#certificate',
+    },
+    {
+      title: 'Introduction to Artificial Intelligence (AI)',
+      issuer: 'Coursera',
+      date: 'Sep 2024',
+      score: '100%',
       image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800',
       url: '#certificate',
     },
     {
-      title: 'Cybersecurity Fundamentals',
-      issuer: 'IBM',
-      date: 'May 2023',
+      title: 'Fundamentals of Network Communication',
+      issuer: 'Coursera',
+      date: 'Feb 2024',
+      score: '96.66%',
       image: 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&q=80&w=800',
       url: '#certificate',
     },
   ];
 
   const achievements = [
-    'IEEE Paper Publication on Cloud Security Optimization',
-    'Winner, National Hackathon 2023',
-    'Best Innovation Award, Bennett University Tech Fest',
-    'Top 5% in Global Coding Competition',
+    'Algorithmic Toolbox (73.04%) - Feb 2024',
+    'Introduction to Computers and Operating Systems and Security (87.50%) - Feb 2024',
+    'AWS Certified Cloud Practitioner (84%) - Jan 2024',
+    'Data Structures (73.95%) - Nov 2023',
   ];
 
   return (
@@ -59,6 +62,7 @@ const Certifications: React.FC = () => {
               title={cert.title}
               issuer={cert.issuer}
               date={cert.date}
+              score={cert.score}
               image={cert.image}
               url={cert.url}
             />

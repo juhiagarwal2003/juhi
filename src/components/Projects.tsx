@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import ScrollReveal from './ScrollReveal';
 import ProjectCard from './ProjectCard';
@@ -9,40 +8,31 @@ const Projects: React.FC = () => {
   const projects = [
     {
       title: 'AgriTech Web Platform',
-      description: 'A comprehensive platform connecting farmers with technology solutions for improved crop management and yield prediction.',
-      tags: ['Java', 'Spring Boot', 'React', 'Machine Learning'],
+      description: 'Created a platform using three AI models for crop recommendations, yield prediction, and disease detection. Implemented features for crop suggestions and yield estimation to support farmers' decision-making.',
+      tags: ['HTML', 'CSS', 'JavaScript', 'Flask/Django', 'Scikit-learn', 'TensorFlow', 'MySQL'],
       image: 'https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?auto=format&fit=crop&q=80&w=800',
       githubUrl: 'https://github.com',
       category: 'Full Stack',
     },
     {
       title: 'WattBill',
-      description: 'Smart energy consumption monitoring system with predictive analytics for reducing electricity costs.',
-      tags: ['IoT', 'Cloud', 'Analytics', 'Java'],
+      description: 'Java-based billing system with Paytm integration and automated bill generation. Advanced admin controls for customer and meter management.',
+      tags: ['Java', 'Swing', 'MySQL'],
       image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=800',
       githubUrl: 'https://github.com',
-      liveUrl: '#demo',
-      category: 'IoT',
+      category: 'Full Stack',
     },
     {
       title: 'VeilCrypt',
-      description: 'Advanced data encryption solution for securing sensitive information with multi-layer protection.',
-      tags: ['Security', 'Cryptography', 'Java', 'API'],
+      description: 'Developed a secure file hiding and encryption tool using OTP-based email authentication. Implemented MySQL for metadata storage and ensured robust security protocols.',
+      tags: ['Java', 'MySQL', 'Email OTP Authentication'],
       image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=800',
       githubUrl: 'https://github.com',
       category: 'Security',
     },
-    {
-      title: 'Cloud Resource Optimizer',
-      description: 'Automated cloud resource management tool that optimizes costs while maintaining performance requirements.',
-      tags: ['AWS', 'DevOps', 'Automation', 'Python'],
-      image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=800',
-      githubUrl: 'https://github.com',
-      category: 'Cloud',
-    },
   ];
 
-  const categories = ['All', 'Full Stack', 'Security', 'IoT', 'Cloud'];
+  const categories = ['All', 'Full Stack', 'Security'];
   
   const filteredProjects = activeFilter === 'All' 
     ? projects 
@@ -85,7 +75,6 @@ const Projects: React.FC = () => {
               tags={project.tags}
               image={project.image}
               githubUrl={project.githubUrl}
-              liveUrl={project.liveUrl}
             />
           </ScrollReveal>
         ))}
