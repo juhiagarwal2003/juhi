@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import ScrollReveal from './ScrollReveal';
 import { Mail, Linkedin, Github, Code, Send } from 'lucide-react';
@@ -22,7 +23,21 @@ const Contact: React.FC = () => {
     setIsSubmitting(true);
     
     try {
-      // Store the contact message in Supabase database first
+      // Validate inputs
+      if (!formData.name || !formData.email || !formData.message) {
+        throw new Error('Please fill out all fields');
+      }
+
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        throw new Error('Please enter a valid email address');
+      }
+
+      // Show toast to indicate message is being sent
+      toast.info('Sending your message...');
+      
+      // Store the contact message in Supabase database
       const { error: dbError } = await supabase
         .from('contact_messages')
         .insert([
@@ -33,9 +48,12 @@ const Contact: React.FC = () => {
           }
         ]);
       
-      if (dbError) throw dbError;
+      if (dbError) {
+        console.error('Database error:', dbError);
+        throw dbError;
+      }
 
-      // Then trigger email sending via edge function
+      // Trigger email sending via edge function
       const { data, error } = await supabase.functions.invoke('send-contact-email', {
         body: {
           name: formData.name,
@@ -46,14 +64,16 @@ const Contact: React.FC = () => {
       });
       
       if (error) {
+        console.error('Edge function error:', error);
         throw error;
       }
 
+      console.log('Email function response:', data);
       toast.success('Message sent successfully!');
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
       console.error('Error sending message:', error);
-      toast.error('Failed to send message. Please try again later.');
+      toast.error(error.message || 'Failed to send message. Please try again later.');
     } finally {
       setIsSubmitting(false);
     }

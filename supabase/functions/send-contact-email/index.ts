@@ -24,25 +24,35 @@ serve(async (req) => {
   try {
     const { name, email, message, recipientEmail } = await req.json() as EmailRequest;
     
-    console.log(`Sending email notification to ${recipientEmail} from contact by ${name} (${email})`);
+    console.log(`Preparing to send email notification to ${recipientEmail}`);
+    console.log(`From contact by ${name} (${email})`);
+    console.log(`Message content length: ${message.length} characters`);
+    console.log(`Using Resend API key: ${Deno.env.get("RESEND_API_KEY") ? "Key exists" : "Key missing!"}`);
 
+    // Create email HTML content
+    const emailHtml = `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+        <h1 style="color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px;">New Contact Message</h1>
+        <p style="margin: 20px 0;"><strong>From:</strong> ${name} (${email})</p>
+        <div style="background-color: #f9f9f9; padding: 20px; border-radius: 5px; margin: 20px 0;">
+          <h2 style="color: #555; font-size: 18px; margin-top: 0;">Message:</h2>
+          <p style="white-space: pre-wrap;">${message}</p>
+        </div>
+        <p style="color: #777; font-size: 14px; margin-top: 30px;">
+          This message was sent from your portfolio website contact form.
+        </p>
+      </div>
+    `;
+
+    // Sending the email
+    console.log("Attempting to send email now...");
     const { data, error } = await resend.emails.send({
-      from: "Contact Form <onboarding@resend.dev>",
+      from: "Juhi Portfolio <onboarding@resend.dev>",
       to: recipientEmail,
       subject: `New Contact Message from ${name}`,
-      html: `
-        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px;">New Contact Message</h1>
-          <p style="margin: 20px 0;"><strong>From:</strong> ${name} (${email})</p>
-          <div style="background-color: #f9f9f9; padding: 20px; border-radius: 5px; margin: 20px 0;">
-            <h2 style="color: #555; font-size: 18px; margin-top: 0;">Message:</h2>
-            <p style="white-space: pre-wrap;">${message}</p>
-          </div>
-          <p style="color: #777; font-size: 14px; margin-top: 30px;">
-            This message was sent from your portfolio website contact form.
-          </p>
-        </div>
-      `,
+      html: emailHtml,
+      // Add reply-to so you can directly reply to the sender
+      reply_to: email,
     });
 
     if (error) {
@@ -58,6 +68,8 @@ serve(async (req) => {
     });
   } catch (error) {
     console.error("Error in send-contact-email function:", error);
+    console.error(`Error details: ${error.message}`);
+    
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
